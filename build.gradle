@@ -1,0 +1,61 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
+
+version = '1.0.11'
+group = 'dev.districtlife'
+archivesBaseName = 'dlclient'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(11)
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+
+minecraft {
+    mappings channel: 'official', version: '1.16.5'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods {
+                dlclient {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, 'mixins.dlclient.refmap.json'
+    config 'mixins.dlclient.json'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+jar {
+    manifest {
+        attributes([
+            'MixinConfigs': 'mixins.dlclient.json',
+            'Specification-Title': 'dlclient',
+            'Specification-Vendor': 'DistrictLife',
+            'Specification-Version': '1',
+            'Implementation-Title': project.name,
+            'Implementation-Version': project.jar.archiveVersion,
+            'Implementation-Vendor': 'DistrictLife',
+        ])
+    }
+}

@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="All Rights Reserved"
+
+[[dependencies.dlclient]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.dlclient]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
+
+[[mods]]
+modId="dlclient"
+version="1.0.11"
+displayName="District Life Client"
+description='''
+Mod client obligatoire pour jouer sur le serveur District Life.
+Gère la création de personnage RP et le système de skin custom.
+'''

@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.districtlife.client.mixin",
+  "compatibilityLevel": "JAVA_11",
+  "refmap": "mixins.dlclient.refmap.json",
+  "client": [
+    "MixinAbstractClientPlayer"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

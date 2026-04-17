@@ -1,0 +1,50 @@
+{
+  "screen.dlclient.identity.title": "Votre identité",
+  "screen.dlclient.identity.subtitle": "Étape 1 / 3 — État civil",
+  "screen.dlclient.identity.firstname": "Prénom",
+  "screen.dlclient.identity.lastname": "Nom de famille",
+  "screen.dlclient.identity.birthdate": "Date de naissance",
+  "screen.dlclient.identity.birthdate.hint": "JJ  /  MM  /  AAAA",
+  "screen.dlclient.identity.next": "Suivant",
+
+  "screen.dlclient.appearance.title": "Votre apparence",
+  "screen.dlclient.appearance.subtitle": "Étape 2 / 3 — Personnalisation",
+  "screen.dlclient.appearance.skin_tone": "Teinte de peau",
+  "screen.dlclient.appearance.eye_color": "Couleur des yeux",
+  "screen.dlclient.appearance.hair_style": "Coupe de cheveux",
+  "screen.dlclient.appearance.hair_color": "Couleur des cheveux",
+  "screen.dlclient.appearance.back": "Retour",
+  "screen.dlclient.appearance.next": "Suivant",
+
+  "screen.dlclient.summary.title": "Vérification de vos informations",
+  "screen.dlclient.summary.subtitle": "Étape 3 / 3 — Confirmation",
+  "screen.dlclient.summary.born": "Né(e) le :",
+  "screen.dlclient.summary.warning": "⚠ Ces informations seront définitives. Vous ne pourrez plus les modifier sans intervention d'un administrateur.",
+  "screen.dlclient.summary.confirm": "J'ai vérifié mes informations et je les confirme",
+  "screen.dlclient.summary.validate": "Valider mon identité",
+  "screen.dlclient.summary.back": "Retour",
+
+  "screen.dlclient.processing.title": "Traitement en cours",
+  "screen.dlclient.processing.text": "Traitement de votre dossier par la Préfecture de District",
+  "screen.dlclient.processing.wait": "Veuillez patienter",
+
+  "screen.dlclient.welcome.title": "Bienvenue à District",
+  "screen.dlclient.welcome.greeting": "Bienvenue, %s %s.",
+  "screen.dlclient.welcome.id_delivered": "Votre pièce d'identité a été délivrée.",
+  "screen.dlclient.welcome.keep_it": "Gardez-la précieusement. En cas de perte, rendez-vous à la mairie.",
+  "screen.dlclient.welcome.enter": "Entrer dans District",
+
+  "screen.dlclient.idcard.title": "Pièce d'identité",
+  "screen.dlclient.idcard.born": "Né(e) le :",
+  "screen.dlclient.idcard.footer": "Préfecture de District — République Roleplay",
+  "screen.dlclient.idcard.close": "Fermer",
+
+  "error.dlclient.name.too_short": "Le prénom/nom est trop court (min 3 caractères).",
+  "error.dlclient.name.too_long": "Le prénom/nom est trop long (max 16 caractères).",
+  "error.dlclient.name.invalid_chars": "Le prénom/nom contient des caractères invalides.",
+  "error.dlclient.birthdate.invalid": "La date de naissance est invalide.",
+  "error.dlclient.birthdate.too_young": "Le personnage doit avoir au moins 18 ans.",
+  "error.dlclient.birthdate.too_old": "Le personnage ne peut pas avoir plus de 90 ans.",
+
+  "kick.dlclient.missing_mod": "Le modpack District Life est requis pour jouer sur ce serveur."
+}
