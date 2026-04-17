@@ -45,8 +45,6 @@ jobs:
 
       - name: Build (release)
         run: ./gradlew build --no-daemon
-        env:
-          JAVA_HOME: ${{ env.JAVA_HOME }}
 
       - name: Récupérer le nom du JAR
         id: jar
