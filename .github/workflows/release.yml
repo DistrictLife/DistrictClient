@@ -28,17 +28,24 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Setup Gradle
+      # Télécharge Gradle 7.6.1 et l'expose comme commande `gradle` dans le PATH.
+      # On bypass complètement le script gradlew (qui a des problèmes de CRLF/permissions).
+      - name: Setup Gradle 7.6.1
         uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '7.6.1'
 
-      - name: Fix gradlew (CRLF + permissions)
+      - name: Debug env
         run: |
-          tr -d '\r' < gradlew > gradlew.lf
-          mv gradlew.lf gradlew
-          chmod +x gradlew
+          echo "=== Java ==="
+          java -version
+          echo "=== Gradle ==="
+          gradle --version
+          echo "=== Working dir ==="
+          ls -la
 
       - name: Build (release)
-        run: ./gradlew build --no-daemon --stacktrace
+        run: gradle build --no-daemon --stacktrace
         timeout-minutes: 15
 
       - name: Récupérer le nom du JAR
