@@ -3,7 +3,7 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
-version = '1.0.13'
+version = '1.0.14'
 group = 'dev.districtlife'
 archivesBaseName = 'dlclient'
 
