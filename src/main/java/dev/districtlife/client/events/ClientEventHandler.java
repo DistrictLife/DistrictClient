@@ -1,5 +1,6 @@
 package dev.districtlife.client.events;
 
+import dev.districtlife.client.DLClientMod;
 import dev.districtlife.client.gui.idcard.IdCardScreen;
 import dev.districtlife.client.skin.SkinCache;
 import net.minecraft.client.Minecraft;
@@ -8,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -64,6 +66,28 @@ public class ClientEventHandler {
         openIdCardScreen(event.getItemStack());
     }
 
+    // ─── Clic gauche dans l'air (prévient suppression serveur) ──────────────
+
+    @SubscribeEvent
+    public static void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
+        if (!isLocalPlayer(event.getPlayer())) return;
+        if (!isIdCard(event.getItemStack())) return;
+
+        event.setCanceled(true);
+    }
+
+    // ─── Clic gauche sur un bloc (prévient suppression serveur) ─────────────
+
+    @SubscribeEvent
+    public static void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+        if (!isLocalPlayer(event.getPlayer())) return;
+        if (!isIdCard(event.getItemStack())) return;
+
+        event.setCanceled(true);
+        event.setUseItem(Event.Result.DENY);
+        event.setUseBlock(Event.Result.DENY);
+    }
+
     // ─── Nettoyage GPU à la déconnexion ─────────────────────────────────────
 
     @SubscribeEvent
@@ -83,16 +107,30 @@ public class ClientEventHandler {
     }
 
     /**
-     * Détecte une carte d'identité via son tag NBT Bukkit PDC.
-     * Bukkit PersistentDataContainer stocke les données dans :
-     *   item.tag.PublicBukkitValues."dlcitizens:id_serial" (StringTag)
+     * Détecte une pièce d'identité.
+     *
+     * Priorité 1 : item custom Forge « dlclient:id_card » (version serveur avec dlclient installé).
+     * Priorité 2 : PAPER vanilla avec tag PDC Bukkit « dlcitizens:id_serial » (compatibilité ascendante).
      */
     public static boolean isIdCard(ItemStack item) {
-        if (item.isEmpty() || item.getItem() != Items.PAPER) return false;
+        if (item.isEmpty()) return false;
+
+        // Vérification via registryName (custom Forge item)
+        ResourceLocation regName = item.getItem().getRegistryName();
+        if (regName != null
+                && "dlclient".equals(regName.getNamespace())
+                && "id_card".equals(regName.getPath())) {
+            // Custom item — vérifie quand même la présence du PDC pour éviter les /give sauvages
+            CompoundNBT tag = item.getTag();
+            if (tag == null || !tag.contains("PublicBukkitValues", 10)) return false;
+            return tag.getCompound("PublicBukkitValues").contains("dlcitizens:id_serial", 8);
+        }
+
+        // Fallback : PAPER + PDC (cartes créées avant la mise à jour ou si dlclient absent du serveur)
+        if (item.getItem() != Items.PAPER) return false;
         CompoundNBT tag = item.getTag();
         if (tag == null || !tag.contains("PublicBukkitValues", 10)) return false;
-        CompoundNBT pdc = tag.getCompound("PublicBukkitValues");
-        return pdc.contains("dlcitizens:id_serial", 8); // 8 = StringTag
+        return tag.getCompound("PublicBukkitValues").contains("dlcitizens:id_serial", 8);
     }
 
     /**
