@@ -31,7 +31,7 @@ public class ClientEventHandler {
         if (!isIdCard(event.getItemStack())) return;
 
         event.setCanceled(true);
-        event.setCancellationResult(ActionResultType.SUCCESS);
+        event.setCancellationResult(ActionResultType.FAIL);
 
         openIdCardScreen(event.getItemStack());
     }
@@ -44,7 +44,7 @@ public class ClientEventHandler {
         if (!isIdCard(event.getItemStack())) return;
 
         event.setCanceled(true);
-        event.setCancellationResult(ActionResultType.SUCCESS);
+        event.setCancellationResult(ActionResultType.FAIL);
         event.setUseItem(Event.Result.DENY);
         event.setUseBlock(Event.Result.DENY);
 
@@ -59,7 +59,7 @@ public class ClientEventHandler {
         if (!isIdCard(event.getItemStack())) return;
 
         event.setCanceled(true);
-        event.setCancellationResult(ActionResultType.SUCCESS);
+        event.setCancellationResult(ActionResultType.FAIL);
 
         openIdCardScreen(event.getItemStack());
     }
